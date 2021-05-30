@@ -9,20 +9,20 @@ export class UsersService {
 
     async getUsers() : Promise<User[]>
     {
-        return this.prisma.user.findMany();
+        return await this.prisma.user.findMany();
 
     }
 
     async createUser(createUserDto: CreateUserDto): Promise<User> 
     {
-        return this.prisma.user.create({
+        return await this.prisma.user.create({
           data: createUserDto
         });
     }
 
     async udpateUser(idUser : number, updateUserDto: UpdateUserDto): Promise<User> 
     {
-        return this.prisma.user.update({
+        return await this.prisma.user.update({
           where : { id: idUser },
           data: updateUserDto
         });
@@ -30,10 +30,11 @@ export class UsersService {
 
     async deleteUser(idUser : number): Promise<{message: string}> 
     {
-       this.prisma.user.delete({
+         await this.prisma.user.delete({
           where : { id: idUser }
         });
 
+    
         return { message : 'user deleted successfully'}
     }
 }
